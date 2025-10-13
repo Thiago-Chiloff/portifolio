@@ -5,11 +5,14 @@ Um portfólio moderno e responsivo desenvolvido com React
 Live Demo • Sobre • Tecnologias • Instalação
 
 🔗Link
-https://portifolio-virid-alpha-21.vercel.app/
+[![Preview do Portfólio](https://https://portifolio-virid-alpha-21.vercel.app//preview.jpg)](https://portifolio-virid-alpha-21.vercel.app/)
 
 </div>
 <strong>
 📋 Sobre
+
+<br>
+
 Este é meu portfólio pessoal, uma aplicação web moderna desenvolvida para mostrar minhas habilidades, projetos e certificações. O design é limpo, responsivo e com interações suaves que proporcionam uma ótima experiência do usuário.
 
 <br>
@@ -47,6 +50,7 @@ Frontend
 <br>
 Ferramentas 
 
+<br>
 
 <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
 <img src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E" alt="Vite">
@@ -86,6 +90,7 @@ Interface divertida e engajante
 <br>
 
 🚀 Instalação
+<br>
 Siga estos passos para executar o projeto localmente:
 
 Pré-requisitos
@@ -96,8 +101,11 @@ npm ou yarn
 <br>
 
 📞Contato
+<br>
 Thiago Chiloff Murgi de Oliveira
+<br>
 📧 Email: chiloffthiago@gmail.com
+<br>
 🐙 GitHub: Thiago-Chiloff
 
 </strong>
