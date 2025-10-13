@@ -5,12 +5,14 @@ Um portfólio moderno e responsivo desenvolvido com React
 Live Demo • Sobre • Tecnologias • Instalação
 
 <div align="center">
+<strong>
 
 ![Portfólio](./src/assets/Screenshot.png)
 
-[![Portfólio - Thiago Chiloff]()](https://portifolio-virid-alpha-21.vercel.app/)
-**🔗 Clique para explorar o portfólio**
-
+🔗Link
+<br>
+https://portifolio-virid-alpha-21.vercel.app/
+</strong>
 </div>
 
 </div>
