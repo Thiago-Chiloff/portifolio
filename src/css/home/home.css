@@ -1,0 +1,206 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
+
+.home-container {
+    min-height: 100vh;
+    color: white;
+    padding: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.home-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 4rem;
+    padding: 4rem 0;
+    position: relative;
+    z-index: 2;
+}
+
+.home-text {
+    flex: 1;
+    max-width: 600px;
+}
+
+.home-text h1 {
+    font-size: 3.5rem;
+    margin-bottom: 0.8rem;
+    background: linear-gradient(45deg, #ffffff, #667eea);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-family: "Caveat", cursive;
+    letter-spacing: 0.13rem;
+}
+
+.highlight {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.home-text h2 {
+    font-size: 1.8rem;
+    color: #ccc;
+    margin-bottom: 2rem;
+    font-weight: 300;
+}
+
+.description {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    color: #b0b0b0;
+}
+
+.description strong {
+    color: #ffffff;
+    font-style: italic;
+}
+
+.interests {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.interest-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.iterest-icon {
+    justify-content: space-around;
+}
+
+.interest-item span strong {
+    font-size: 0.9rem;
+    color: #ffffff;
+}
+
+.home-buttons {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    position: relative;
+    z-index: 2;
+}
+
+.btn.primary {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+}
+
+.btn.secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid #667eea;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.btn.primary:hover {
+    background: linear-gradient(45deg, #764ba2, #667eea);
+}
+
+.btn.secondary:hover {
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.home-image {
+    flex: 1;
+    display: flex;
+    justify-content: space-around;
+}
+
+.home-image img {
+    max-width: 4000px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.home-image img:hover {
+    transform: scale(1.05);
+    
+}
+
+header {
+    position: relative;
+    z-index: 3;
+}
+
+
+@media (max-width: 968px) {
+    .home-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+    
+    .home-text h1 {
+        font-size: 2.5rem;
+    }
+    
+    .home-text h2 {
+        font-size: 1.4rem;
+    }
+    
+    .interests {
+        justify-content: center;
+    }
+    
+    .home-buttons {
+        justify-content: center;
+    }
+    
+    .home-image img {
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .home-container {
+        padding: 1rem;
+    }
+    
+    .home-text h1 {
+        font-size: 2rem;
+    }
+    
+    .interests {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .home-buttons {
+        flex-direction: column;
+    }
+}

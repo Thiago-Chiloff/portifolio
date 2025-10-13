@@ -1,0 +1,95 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #000000;
+  z-index: 1;
+}
+
+body {
+  background-color: #1a1a1a; 
+  color: #e0e0e0; 
+  font-family: system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+}
+
+body.game-page header,
+body.game-page .header,
+body.game-page nav,
+body.game-page .nav {
+  display: none !important;
+}
+
+body.game-page {
+  overflow: auto !important;
+}
+
+body.game-page .squares-canvas {
+  display: none !important;
+}
+
+.app {
+    position: relative;
+    min-height: 100vh;
+}
+
+.content-wrapper {
+    position: relative;
+    z-index: 1;
+    padding-top: 80px; 
+}
+
+.main-content {
+    position: relative;
+    z-index: 1;
+    margin-top: 0;
+}
+
+.header {
+    z-index: 1000; 
+}
+.zoom-modal {
+    z-index: 2000 !important; 
+}
+
+@media (max-width: 768px) {
+    .content-wrapper {
+        padding-top: 70px; 
+    }
+    
+    .app {
+        padding-top: 0; 
+    }
+}
+
+a, button {
+    color: #e0e0e0;
+}
+
+h1, h2, h3, h4, h5, h6, p, span {
+    color: #e0e0e0;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+*:focus {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+::selection {
+    background: rgba(102, 126, 234, 0.3);
+    color: #ffffff;
+}
+
+::-moz-selection {
+    background: rgba(102, 126, 234, 0.3);
+    color: #ffffff;
+}

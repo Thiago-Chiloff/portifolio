@@ -1,0 +1,127 @@
+.back-button-container {
+    position: fixed;
+    top: 100px;
+    left: 2rem;
+    z-index: 999;
+}
+
+.back-button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: 'Arial', sans-serif;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.back-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+.back-button:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(102, 126, 234, 0.6);
+}
+
+.back-button-icon {
+    transition: transform 0.3s ease;
+}
+
+.back-button:hover .back-button-icon {
+    transform: translateX(-3px);
+}
+
+.back-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: left 0.5s;
+}
+
+.back-button:hover::before {
+    left: 100%;
+}
+
+@keyframes subtlePulse {
+    0%, 100% {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+        box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+    }
+}
+
+.back-button {
+    animation: subtlePulse 3s infinite;
+}
+@media (max-width: 768px) {
+    .back-button-container {
+        top: 90px;
+        left: 1rem;
+    }
+    
+    .back-button {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        border-radius: 40px;
+    }
+    
+    .back-button-icon {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .back-button-container {
+        top: 80px;
+        left: 0.8rem;
+    }
+    
+    .back-button {
+        padding: 8px 16px;
+        font-size: 0.8rem;
+        border-radius: 30px;
+        gap: 6px;
+    }
+}
+
+.back-button:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 2px;
+}
+
+.back-button.alternative {
+    background: rgba(51, 51, 51, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.back-button.alternative:hover {
+    background: rgba(51, 51, 51, 0.8);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}

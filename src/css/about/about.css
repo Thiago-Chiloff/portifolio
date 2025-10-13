@@ -1,0 +1,341 @@
+.about-container {
+    padding: 100px 2rem 2rem;
+    min-height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+.content-column {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.my-image {
+    position: sticky;
+    top: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.my-image img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 15px;
+    border: 2px solid rgba(51, 51, 51, 0.5);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    background-color: rgba(0, 0, 0, 0.164);
+}
+
+.my-image img:hover {
+    transform: translateY(-5px);
+    border-color: rgba(102, 126, 234, 0.74);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.about-me,
+.contact,
+.languages-programation,
+.languages {
+    padding: 2.5rem;
+    background: rgba(26, 26, 26, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(51, 51, 51, 0.5);
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.about-me:hover,
+.contact:hover,
+.languages-programation:hover,
+.languages:hover {
+    border-color: rgba(102, 126, 234, 0.74);
+    transform: translateY(-3px);
+}
+
+.about-me h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    text-align: left;
+}
+
+.about-me p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin: 1rem 0;
+    color: #e0e0e0;
+    text-align: left;
+}
+
+.contact h2,
+.languages-programation h2,
+.languages h2 {
+    font-size: 1.8rem;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    position: relative;
+    text-align: left;
+}
+
+.contact h2::after,
+.languages-programation h2::after,
+.languages h2::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    border-radius: 2px;
+}
+
+.languages p {
+    font-size: 1.3rem;
+    color: #e0e0e0;
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(51, 51, 51, 0.3);
+    border-radius: 8px;
+    border-left: 4px solid #667eea;
+    text-align: left;
+}
+
+  Efeito de grid sutil nos containers */
+.about-me::before,
+.contact::before,
+.languages-programation::before,
+.languages::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(90deg, transparent 24px, rgba(51, 51, 51, 0.1) 25px),
+        linear-gradient(180deg, transparent 24px, rgba(51, 51, 51, 0.1) 25px);
+    background-size: 25px 25px;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+.contact-icons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.contact-icons a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1.5rem 1rem;
+    background: rgba(51, 51, 51, 0.3);
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.contact-icons a:hover {
+    background: rgba(102, 126, 234, 0.2);
+    border-color: rgba(102, 126, 234, 0.5);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.contact-icons a svg {
+    color: inherit !important;
+    fill: inherit !important;
+}
+
+.contact-icons a:hover svg {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+.contact-icons span {
+    color: #e0e0e0;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.tech-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.tech-icons span {
+    background: rgba(102, 126, 234, 0.2);
+    color: #fff;
+    padding: 0.7rem 1.2rem;
+    border-radius: 20px;
+    border: 1px solid rgba(102, 126, 234, 0.5);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.tech-icons span:hover {
+    background: rgba(102, 126, 234, 0.3);
+    transform: translateY(-2px);
+}
+
+.languages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.language-item {
+    background: rgba(51, 51, 51, 0.3);
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    border-left: 4px solid #667eea;
+}
+
+.language-item h3 {
+    color: #fff;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.language-item p {
+    color: #e0e0e0;
+    font-size: 0.9rem;
+    margin: 0;
+    padding: 0;
+    background: none;
+    border-left: none;
+}
+
+@media (max-width: 968px) {
+    .about-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 80px 1rem 1rem;
+    }
+    
+    .my-image {
+        position: relative;
+        top: 0;
+        order: -1;
+    }
+    
+    .my-image img {
+        max-width: 250px;
+    }
+    
+    .content-column {
+        order: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-container {
+        padding: 80px 1rem 1rem;
+    }
+    
+    .about-me,
+    .contact,
+    .languages-programation,
+    .languages {
+        margin: 0;
+        padding: 2rem 1.5rem;
+    }
+    
+    .about-me h1 {
+        font-size: 2rem;
+    }
+    
+    .about-me p {
+        font-size: 1.1rem;
+    }
+    
+    .contact h2,
+    .languages-programation h2,
+    .languages h2 {
+        font-size: 1.5rem;
+    }
+    
+    .languages p {
+        font-size: 1.1rem;
+    }
+    
+    .my-image img {
+        max-width: 200px;
+    }
+    
+    .contact-icons {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .tech-icons {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-me,
+    .contact,
+    .languages-programation,
+    .languages {
+        padding: 1.5rem 1rem;
+    }
+    
+    .about-me h1 {
+        font-size: 1.8rem;
+    }
+    
+    .about-me p {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+    
+    .contact h2,
+    .languages-programation h2,
+    .languages h2 {
+        font-size: 1.3rem;
+    }
+    
+    .my-image img {
+        max-width: 180px;
+    }
+    
+    .contact-icons {
+        grid-template-columns: 1fr;
+    }
+    
+    .tech-icons {
+        justify-content: center;
+    }
+    
+    .tech-icons span {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+}
