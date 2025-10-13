@@ -1,10 +1,10 @@
 import Header from "../header/header";
 import "../../css/about/about.css";
-import { FaGithub, FaLinkedin, FaEnvelope, FaWhatsapp, FaFileDownload } from 'react-icons/fa';
+import { FaGithub,  FaWhatsapp, FaFileDownload } from 'react-icons/fa';
 import { SiGmail, SiDiscord } from 'react-icons/si';
 import Transition from "../PixelTransition/transition";
 import TextType from "../typeText/textType";
-
+import PictureCurriculo from "../../assets/certificates/curriculo.jpg"
 function AboutMe() {
     return (
         <>
@@ -40,10 +40,7 @@ function AboutMe() {
                                 <FaGithub size={35} style={{ color: '#ffffff' }} />
                                 <span>GitHub</span>
                             </a>
-                            <a href="https://linkedin.com/in/seuusuario" target="_blank" rel="noopener noreferrer">
-                                <FaLinkedin size={35} style={{ color: '#0077b5' }} />
-                                <span>LinkedIn</span>
-                            </a>
+                           
                             <a href="https://wa.me/5516997993006" target="_blank" rel="noopener noreferrer">
                                 <FaWhatsapp size={35} style={{ color: '#25D366' }} />
                                 <span>WhatsApp</span>
@@ -52,7 +49,7 @@ function AboutMe() {
                                 <SiDiscord size={35} style={{ color: '#5865F2' }} />
                                 <span>Discord</span>
                             </a>
-                            <a href="/curriculo.pdf" download>
+                            <a href={PictureCurriculo} download>
                                 <FaFileDownload size={35} style={{ color: '#ffffff' }} />
                                 <span>Currículo</span>
                             </a>
