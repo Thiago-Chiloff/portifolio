@@ -106,14 +106,13 @@ function Game() {
     });
   }, [direction, food, gameOver, generateFood, isMobile]);
 
-  // Controles do teclado - AGORA COM W, A, S, D
+  // Controles do teclado - AGORA COM W, A, S, D Buceta
   useEffect(() => {
     if (isMobile) return;
 
     const handleKeyPress = (e: KeyboardEvent) => {
       if (gameOver) return;
 
-      // Convertendo para minúsculo para aceitar tanto maiúsculas quanto minúsculas
       const key = e.key.toLowerCase();
 
       switch (key) {
@@ -164,7 +163,7 @@ function Game() {
     }
   }, [initGame, isMobile]);
 
-  // Se for mobile, mostra mensagem
+  // Se for mobile, mostra mensagem 
   if (isMobile) {
     return (
       <div className="game-container">
