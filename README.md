@@ -1,7 +1,4 @@
 <div align="center">
-https://img.shields.io/github/last-commit/seu-usuario/seu-repositorio
-https://img.shields.io/github/repo-size/seu-usuario/seu-repositorio
-https://img.shields.io/github/languages/count/seu-usuario/seu-repositorio
 
 Um portfólio moderno e responsivo desenvolvido com React
 
