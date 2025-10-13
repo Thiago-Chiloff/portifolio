@@ -17,11 +17,11 @@ Este é meu portfólio pessoal, uma aplicação web moderna desenvolvida para mo
 
 🎯 Navegação Intuitiva - Experiência de usuário fluida
 
-🕹️ Seção Interativa - Inclui um jogo desenvolvido com JavaScript
+🕹️ Seção Interativa - Inclui um jogo desenvolvido com Typescript
 
 🛠️ Tecnologias
 <div align="center">
-Frontend
+Frontend  
 
 
 
@@ -50,7 +50,6 @@ Informações pessoais e profissionais
 
 Hobbies e interesses
 
-Trajetória e objetivos
 
 📜 Certificados
 Galeria de certificações e conquistas
