@@ -10,7 +10,8 @@ function Header () {
     const routes = {
         home: "/",
         about: "/aboutme/aboutme",
-        certificates: "/certificates/certificates"
+        certificates: "/certificates/certificates",
+         projects: "/projects/projects"
     }
 
     const handleClickChange = (path) => {
@@ -36,12 +37,14 @@ function Header () {
                     <button onClick={() => handleClickChange(routes.home)}>Home</button>
                     <button onClick={() => handleClickChange(routes.about)}>Sobre Mim</button>
                     <button onClick={() => handleClickChange(routes.certificates)}>Certificados</button>
+                    <button onClick={() => handleClickChange(routes.projects)}>Projetos</button>
                 </div>
 
                 <div className={`mobile-menu ${isMenuOpen ? 'mobile-menu-open' : ''}`}>
                     <button onClick={() => handleClickChange(routes.home)}>Home</button>
                     <button onClick={() => handleClickChange(routes.about)}>Sobre Mim</button>
                     <button onClick={() => handleClickChange(routes.certificates)}>Certificados</button>
+                    <button onClick={() => handleClickChange(routes.projects)}>Projetos</button>
                 </div>
                 {isMenuOpen && <div className="menu-overlay" onClick={toggleMenu}></div>}
             </div>

@@ -3,7 +3,8 @@ import Home from "./components/home/home";
 import AboutMe from "./components/aboutMe/aboutMe";
 import Background from "./components/background/background";
 import Certificates from "./components/certificates/certicates";
-import Game from "./components/game/game";
+import MineClone from "./components/mineClone/mineClone";
+import Projects from "./components/projects/projects";
 import Header from "./components/header/header"; 
 import "./App.css";
 
@@ -12,7 +13,7 @@ function App() {
     <div className="app">
       <Router>
         <Routes>
-          <Route path="/game/game" element={<Game />} />
+          <Route path="/game/game" element={<MineClone />} />
           <Route path="*" element={
             <>
               <Background />
@@ -22,6 +23,7 @@ function App() {
                   <Route path="/" element={<Home />} />
                   <Route path="/aboutme/aboutme" element={<AboutMe />} />
                   <Route path="/certificates/certificates" element={<Certificates />} />
+                  <Route path="/projects/projects" element={<Projects />} />
                 </Routes>
               </div>
             </>

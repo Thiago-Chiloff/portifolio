@@ -16,11 +16,11 @@ function AboutMe() {
                         <h1>Sobre Mim</h1>
                         <p>Sou uma pessoa esforçada e bem criativa.</p>
                         <p>Tenho grande paixão por programação, jogos e, especialmente, pela leitura de bons livros.</p>
-                        <p>Sou mais reservado, mas compenso com um bom humor constante..</p>
+                        <p>Sou mais reservado, mas compenso com um bom humor constante...</p>
                         <p>Atuo como freelancer em desenvolvimento e também realizo edição de vídeos.</p>
                         <strong>
                         <TextType 
-                        text={["Contudo, obrigado por vir aqui :)" , "However, thanks for coming here :)" , "しかしながら、ここに来てくれてありがとう :)" ]}
+                        text={["Contudo, obrigado por vir aqui :)" , "However, thank's for coming here :)" , "しかしながら、ここに来てくれてありがとう :)" ]}
                         typingSpeed={90}
                         pauseDuration={3000}
                         showCursor={true}
@@ -68,6 +68,13 @@ function AboutMe() {
                             <span>HTML</span>
                             <span>CSS</span>
                             <span>SaaS</span>
+                        </div>
+                        <br />
+                        <h2>Este portifolio foi programado com:</h2>
+                        <div className="tech-icons">
+                            <span>React</span>
+                            <span>JavaScript</span>
+                            <span>CSS</span>
                         </div>
                     </div>
                     

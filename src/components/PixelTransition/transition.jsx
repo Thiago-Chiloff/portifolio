@@ -6,7 +6,7 @@ import './pixelTransition.css';
 function TransitionPicture () {
 
   const gamePath = {
-    game : "/game/game"
+    game: "/game/game"
   }
 
   const navigateGame = useNavigate();
