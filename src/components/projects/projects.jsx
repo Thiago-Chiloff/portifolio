@@ -1,20 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { FaGithub, FaExternalLinkAlt, FaCode, FaStar, FaCodeBranch, FaEye } from 'react-icons/fa';
-import { SiReact, SiJavascript, SiTypescript, SiPython, SiNodedotjs, SiHtml5, SiCss3, SiThreedotjs } from 'react-icons/si';
+import React from 'react';
+import { FaCode } from 'react-icons/fa';
+import { SiReact, SiJavascript, SiTypescript, SiPython, SiNodedotjs, SiHtml5, SiCss, SiThreedotjs } from 'react-icons/si';
 import Header from "../header/header";
 import "../../css/projects/projects.css";
 
 const ProjectCard = ({ repo, description, link, techs = [] }) => {
-  const [stats, setStats] = useState({ stars: 0, forks: 0 });
-
-  const getRepoName = (url) => {
-    if (!url) return '';
-    const parts = url.replace('https://github.com/Thiago-Chiloff/', '').split('/');
-    return parts[0] + '/' + parts[1];
-  };
-
-  
-
   const getTechIcon = (tech) => {
     const icons = {
       'React': <SiReact color="#61DAFB" />,
@@ -23,7 +13,7 @@ const ProjectCard = ({ repo, description, link, techs = [] }) => {
       'Python': <SiPython color="#3776AB" />,
       'Node.js': <SiNodedotjs color="#339933" />,
       'HTML': <SiHtml5 color="#E34F26" />,
-      'CSS': <SiCss3 color="#1572B6" />,
+      'CSS': <SiCss color="#1572B6" />,
       'Three.js': <SiThreedotjs color="#000000" />
     };
     return icons[tech] || <FaCode />;
@@ -36,7 +26,6 @@ const ProjectCard = ({ repo, description, link, techs = [] }) => {
           <FaCode className="project-icon" />
           <h3>{repo}</h3>
         </div>
-       
       </div>
       
       <div className="project-content">
@@ -59,7 +48,6 @@ const ProjectCard = ({ repo, description, link, techs = [] }) => {
           <a href={link} target="_blank" rel="noopener noreferrer">
             Live Demo
           </a>
-        
         </div>
       </div>
     </div>
@@ -74,7 +62,6 @@ function Projects() {
       link: "https://portifolio-virid-alpha-21.vercel.app/",
       techs: ["React", "JavaScript", "CSS"]
     },
- 
     {
       repo: "Anonymous Secrets",
       description: "Um Site/App para compartilhar segredos de forma anônima, gratuita e segura.",
@@ -92,6 +79,16 @@ function Projects() {
         description: "Um aplicativo/site para te lembrar das contas a serem pagas no mês (P.S: O projeto eu fiz exclusivamente para a minha mãe que não sabe mexer no google forms)",
         link: "https://paycount.vercel.app/",
         techs: ["React", "JavaScript", "CSS"]
+    },
+    {
+      repo : "Jogo da Imitação",
+      description: [
+        "Baseado no famoso teste de Turing, o Jogo da Imitação é um desafio interativo que explora a capacidade de distinguir se a mensagem foi escrita por uma IA ou por um humano, se o jogador acertar que foi uma IA(ou humano) o teste falha e o  jogador ganha, se o jogador errar, o teste passa e a IA vence.",<br/>,
+        "O jogador, ao finalizar a partida, pode utilizar os pontos gerados (logs) para comprar itens na loja. " , <br/>,
+        "Há um sistema de ranking, onde os jogadores podem comparar suas pontuações com outros jogadores e ver quem é o melhor no Jogo da Imitação."
+      ],
+      link: "https://theimationgame.vercel.app/",
+      techs: ["React", "TypeScript", "CSS" , "Supabase"]
     }
   ];
 
@@ -116,7 +113,6 @@ function Projects() {
               />
             ))}
           </div>
-          
         </div>
       </div>
     </>
