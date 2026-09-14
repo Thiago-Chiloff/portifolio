@@ -20,34 +20,85 @@ const PLAYER_WIDTH = 0.6;
 const blockGeometry = new THREE.BoxGeometry(BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
 const wireframeGeometry = new THREE.BoxGeometry(1.1, 1.1, 1.1);
 
-// Materiais reutilizaveis
-const materials = {
-  grass: new THREE.MeshStandardMaterial({ color: '#2E8B57' }),
-  dirt: new THREE.MeshStandardMaterial({ color: '#8B4513' }),
-  stone: new THREE.MeshStandardMaterial({ color: '#808080' }),
-  highlight: new THREE.MeshBasicMaterial({ color: 'white', wireframe: true, transparent: true, opacity: 0.5 })
+
+// Gera uma textura pixelada com uma cor base + ruído (dá aquele efeito "sujo"/orgânico dos blocos)
+function createPixelTexture([r, g, b], { size = 16, noise = 20 } = {}) {
+  const canvas = document.createElement('canvas');
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext('2d');
+
+  for (let y = 0; y < size; y++) {
+    for (let x = 0; x < size; x++) {
+      const v = (Math.random() - 0.5) * noise;
+      ctx.fillStyle = `rgb(${clamp(r + v)}, ${clamp(g + v)}, ${clamp(b + v)})`;
+      ctx.fillRect(x, y, 1, 1);
+    }
+  }
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.magFilter = THREE.NearestFilter; // sem blur, mantém o pixel "quadrado"
+  texture.minFilter = THREE.NearestFilter;
+  return texture;
+}
+
+function clamp(v) {
+  return Math.max(0, Math.min(255, Math.round(v)));
+}
+
+// Textura especial pra lateral do bloco de grama: faixa verde em cima, terra embaixo
+function createGrassSideTexture(size = 16) {
+  const canvas = document.createElement('canvas');
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext('2d');
+
+  for (let y = 0; y < size; y++) {
+    for (let x = 0; x < size; x++) {
+      const isTop = y < 5;
+      const [br, bg, bb] = isTop ? [86, 148, 60] : [101, 67, 33];
+      const v = (Math.random() - 0.5) * (isTop ? 25 : 20);
+      ctx.fillStyle = `rgb(${clamp(br + v)}, ${clamp(bg + v)}, ${clamp(bb + v)})`;
+      ctx.fillRect(x, y, 1, 1);
+    }
+  }
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.magFilter = THREE.NearestFilter;
+  texture.minFilter = THREE.NearestFilter;
+  return texture;
+}
+
+const textures = {
+  grassTop: createPixelTexture([86, 148, 60]),
+  grassSide: createGrassSideTexture(),
+  dirt: createPixelTexture([101, 67, 33]),
+  stone: createPixelTexture([120, 120, 120], { noise: 15 }),
 };
 
+// Materiais reutilizaveis
+const materials = {
+  grass: [
+    new THREE.MeshStandardMaterial({ map: textures.grassSide }),
+    new THREE.MeshStandardMaterial({ map: textures.grassSide }),
+    new THREE.MeshStandardMaterial({ map: textures.grassTop }),
+    new THREE.MeshStandardMaterial({ map: textures.dirt }),
+    new THREE.MeshStandardMaterial({ map: textures.grassSide }),
+    new THREE.MeshStandardMaterial({ map: textures.grassSide }),
+  ],
+  dirt: new THREE.MeshStandardMaterial({ map: textures.dirt }),
+  stone: new THREE.MeshStandardMaterial({ map: textures.stone }),
+  highlight: new THREE.MeshBasicMaterial({ color: 'white', wireframe: true, transparent: true, opacity: 0.5 })
+};
 const blockTypes = ['grass', 'dirt', 'stone'];
 
 // Componente de Blocos
-const Block = React.memo(({ position, type = 'dirt' }) => {
+const Block = React.memo(({ position, type = 'dirt', blockKey }) => {
   const meshRef = useRef();
-  
   useEffect(() => {
-    if (meshRef.current) {
-      meshRef.current.userData = { type };
-    }
-  }, [type]);
-  
-  return (
-    <mesh 
-      ref={meshRef}
-      position={position}
-      geometry={blockGeometry}
-      material={materials[type]}
-    />
-  );
+    if (meshRef.current) meshRef.current.userData = { type, key: blockKey };
+  }, [type, blockKey]);
+  return <mesh ref={meshRef} position={position} geometry={blockGeometry} material={materials[type]} />;
 });
 
 // Gerador de Anão Caralahudo
@@ -65,35 +116,26 @@ class WorldGenerator {
   }
 
   static generateChunk(chunkX, chunkZ) {
-    const blocks = [];
-    const worldX = chunkX * CHUNK_SIZE;
-    const worldZ = chunkZ * CHUNK_SIZE;
-    
-    for (let x = 0; x < CHUNK_SIZE; x++) {
-      for (let z = 0; z < CHUNK_SIZE; z++) {
-        const globalX = worldX + x;
-        const globalZ = worldZ + z;
-        const height = this.generateHeight(globalX, globalZ);
-        
-        for (let y = 0; y < height; y++) {
-          let type = 'dirt';
-          if (y === height - 1) {
-            type = 'grass';
-          } else if (y < 3) {
-            type = 'stone';
-          }
-          
-          blocks.push({
-            position: [globalX, y, globalZ],
-            type: type,
-            key: `${globalX},${y},${globalZ}`
-          });
-        }
+  const blocks = [];
+  const worldX = chunkX * CHUNK_SIZE;
+  const worldZ = chunkZ * CHUNK_SIZE;
+
+  for (let x = 0; x < CHUNK_SIZE; x++) {
+    for (let z = 0; z < CHUNK_SIZE; z++) {
+      const globalX = worldX + x;
+      const globalZ = worldZ + z;
+      const height = this.generateHeight(globalX, globalZ);
+
+      // só as ~3 camadas visíveis de cima, em vez da coluna inteira
+      const startY = Math.max(0, height - 3);
+      for (let y = startY; y < height; y++) {
+        let type = y === height - 1 ? 'grass' : (y < 3 ? 'stone' : 'dirt');
+        blocks.push({ position: [globalX, y, globalZ], type, key: `${globalX},${y},${globalZ}` });
       }
     }
-    
-    return blocks;
   }
+  return blocks;
+}
 
   static generateInitialWorld() {
     const allBlocks = [];
@@ -111,7 +153,6 @@ class WorldGenerator {
     return allBlocks;
   }
 }
-
 // Loading Screen
 function LoadingScreen({ progress, visible }) {
   const [dots, setDots] = useState('');
@@ -158,7 +199,7 @@ const World = React.memo(({ blocks }) => {
   return (
     <group ref={groupRef}>
       {blocks.map((block) => (
-        <Block key={block.key} position={block.position} type={block.type} />
+        <Block key={block.key} position={block.position} type={block.type} blockKey={block.key} />
       ))}
     </group>
   );
@@ -180,8 +221,8 @@ function checkCollision(position, blocks) {
     if (Math.abs(position.x - blockPos.x) > PLAYER_WIDTH + 1) continue;
     if (Math.abs(position.z - blockPos.z) > PLAYER_WIDTH + 1) continue;
     
-    const blockMinY = blockPos.y;
-    const blockMaxY = blockPos.y + 1;
+   const blockMinY = blockPos.y - 0.5;
+   const blockMaxY = blockPos.y + 0.5;
     
     const overlapX = Math.abs(position.x - blockPos.x) < PLAYER_WIDTH;
     const overlapZ = Math.abs(position.z - blockPos.z) < PLAYER_WIDTH;
@@ -196,7 +237,7 @@ function checkCollision(position, blocks) {
 }
 
 // Componente do Player 
-function Player({ position, setPosition, setTargetBlock, isGameActive }) {
+function Player({ position, setTargetBlock, isGameActive }) {
   const { camera } = useThree();
   const velocity = useRef(new THREE.Vector3());
   const onGround = useRef(false);
@@ -441,13 +482,12 @@ function MineClone() {
   }, [isMobile]);
   
   // Quebrar bloco (clique esquerdo) (bruh)
-  const handleBreakBlock = useCallback(() => {
-    if (!isGameActive) return;
-    if (targetBlock && targetBlock.object && targetBlock.object.parent) {
-      targetBlock.object.parent.remove(targetBlock.object);
-      setTargetBlock(null);
-    }
-  }, [targetBlock, isGameActive]);
+ const handleBreakBlock = useCallback(() => {
+  if (!isGameActive || !targetBlock?.object?.userData?.key) return;
+  const keyToRemove = targetBlock.object.userData.key;
+  setWorldBlocks(prev => prev.filter(b => b.key !== keyToRemove));
+  setTargetBlock(null);
+}, [targetBlock, isGameActive]);
   
   // Colocar bloco (clique direito) - SISTEMA PREVENTIVO (agora vai caralho)
   const handlePlaceBlock = useCallback(() => {
@@ -514,6 +554,7 @@ function MineClone() {
         
         setWorldBlocks(prev => [...prev, newBlock]);
       } else {
+        // Ignore
       }
     } catch (error) {
       console.error("Erro ao colocar bloco:", error);
@@ -564,25 +605,21 @@ function MineClone() {
   }, [gameStarted, isGameActive]);
   
   // Pointer lock
-  useEffect(() => {
-    const handlePointerLockChange = () => {
-      setIsPointerLocked(document.pointerLockElement !== null);
-      if (!document.pointerLockElement) {
-        setIsGameActive(false);
-      }
-    };
-    
-    document.addEventListener('pointerlockchange', handlePointerLockChange);
-    return () => document.removeEventListener('pointerlockchange', handlePointerLockChange);
-  }, []);
+ useEffect(() => {
+  const handlePointerLockChange = () => {
+    const locked = document.pointerLockElement !== null;
+    setIsPointerLocked(locked);
+    setIsGameActive(locked); 
+  };
+
+  document.addEventListener('pointerlockchange', handlePointerLockChange);
+  return () => document.removeEventListener('pointerlockchange', handlePointerLockChange);
+}, []);
   
   // Função para iniciar o jogo (clique na tela)
-  const handleCanvasClick = useCallback(() => {
-    if (!isPointerLocked && !isMobile) {
-      document.body.requestPointerLock();
-      setIsGameActive(true);
-    }
-  }, [isPointerLocked, isMobile]);
+ const handleCanvasClick = useCallback(() => {
+  // não faz mais nada com pointer lock — o PointerLockControls já cuida disso
+}, []);
   
   // Mensagem de boas-vindas ao meu inferno (só mostrar por 8 segundos)
   useEffect(() => {
