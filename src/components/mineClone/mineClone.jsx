@@ -8,7 +8,7 @@ import '../../css/mineClone/mineClone.css';
 
 // Constantes
 const CHUNK_SIZE = 16;
-const RENDER_DISTANCE = 4;
+const RENDER_DISTANCE = 2;
 const BLOCK_SIZE = 1;
 const GRAVITY = 25;
 const PLAYER_SPEED = 15;
@@ -103,38 +103,46 @@ const Block = React.memo(({ position, type = 'dirt', blockKey }) => {
 
 // Gerador de Anão Caralahudo
 class WorldGenerator {
+  static hash(x, z) {
+    const value = Math.sin(x * 12.9898 + z * 78.233) * 43758.5453;
+    return (value - Math.floor(value)) * 2 - 1;
+  }
+
   static generateHeight(x, z) {
-    const freq1 = 0.03;
-    const freq2 = 0.08;
-    const freq3 = 0.15;
-    
-    const h1 = Math.sin(x * freq1) * Math.cos(z * freq1) * 8;
-    const h2 = Math.sin(x * freq2 + 5) * Math.cos(z * freq2 + 3) * 4;
-    const h3 = Math.sin(x * freq3 + 10) * Math.cos(z * freq3 + 7) * 2;
-    
-    return Math.max(4, Math.floor(Math.abs(h1 + h2 + h3) + 3));
+    const broadTerrain = Math.sin(x * 0.035) * Math.cos(z * 0.035);
+    const mountainRange = Math.sin(x * 0.075 + 1.5) * Math.cos(z * 0.045 - 0.8);
+    const ridgeNoise = 1 - Math.abs(Math.sin(x * 0.16 + 2) * Math.cos(z * 0.13 + 4));
+    const detailNoise = Math.sin(x * 0.32 + 1) * Math.cos(z * 0.28 - 2);
+    const mountainMask = Math.max(0, broadTerrain + 0.35);
+    const height = 5
+      + broadTerrain * 3
+      + mountainMask * (mountainRange * 5 + ridgeNoise * 4)
+      + detailNoise * 0.8
+      + this.hash(x, z) * 0.6;
+
+    return Math.max(4, Math.floor(height));
   }
 
   static generateChunk(chunkX, chunkZ) {
-  const blocks = [];
-  const worldX = chunkX * CHUNK_SIZE;
-  const worldZ = chunkZ * CHUNK_SIZE;
+    const blocks = [];
+    const worldX = chunkX * CHUNK_SIZE;
+    const worldZ = chunkZ * CHUNK_SIZE;
 
-  for (let x = 0; x < CHUNK_SIZE; x++) {
-    for (let z = 0; z < CHUNK_SIZE; z++) {
-      const globalX = worldX + x;
-      const globalZ = worldZ + z;
-      const height = this.generateHeight(globalX, globalZ);
+    for (let x = 0; x < CHUNK_SIZE; x++) {
+      for (let z = 0; z < CHUNK_SIZE; z++) {
+        const globalX = worldX + x;
+        const globalZ = worldZ + z;
+        const height = this.generateHeight(globalX, globalZ);
 
-      // só as ~3 camadas visíveis de cima, em vez da coluna inteira
-      const startY = Math.max(0, height - 3);
-      for (let y = startY; y < height; y++) {
-        let type = y === height - 1 ? 'grass' : (y < 3 ? 'stone' : 'dirt');
-        blocks.push({ position: [globalX, y, globalZ], type, key: `${globalX},${y},${globalZ}` });
+        const startY = Math.max(0, height - 4);
+        for (let y = startY; y < height; y++) {
+          const depth = height - y;
+          const type = depth === 1 ? 'grass' : depth <= 3 ? 'dirt' : 'stone';
+          blocks.push({ position: [globalX, y, globalZ], type, key: `${globalX},${y},${globalZ}` });
+        }
       }
     }
-  }
-  return blocks;
+    return blocks;
 }
 
   static generateInitialWorld() {
