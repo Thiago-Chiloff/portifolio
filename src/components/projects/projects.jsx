@@ -1,10 +1,10 @@
 import React from 'react';
-import { FaCode, FaShoppingCart } from 'react-icons/fa';
+import { FaCode, FaShoppingCart, FaStore } from 'react-icons/fa';
 import { SiReact, SiJavascript, SiTypescript, SiPython, SiNodedotjs, SiHtml5, SiCss, SiThreedotjs } from 'react-icons/si';
 import Header from "../header/header";
 import "../../css/projects/projects.css";
 
-const ProjectCard = ({ repo, description, link, techs = [], isTemplate = false, buyLink }) => {
+const ProjectCard = ({ repo, description, link, techs = [], isTemplate = false, buyLink, isStore = false }) => {
   const getTechIcon = (tech) => {
     const icons = {
       'React': <SiReact color="#61DAFB" />,
@@ -23,7 +23,7 @@ const ProjectCard = ({ repo, description, link, techs = [], isTemplate = false, 
     <div className="project-card">
       <div className="project-header">
         <div className="project-title">
-          <FaCode className="project-icon" />
+          {isStore ? <FaStore className="project-icon" /> : <FaCode className="project-icon" />}
           <h3>{repo}</h3>
         </div>
       </div>
@@ -44,10 +44,11 @@ const ProjectCard = ({ repo, description, link, techs = [], isTemplate = false, 
           </div>
         )}
         
-        <div className="project-links" style={{ display: 'flex', gap: '10px' }}>
+        <div className="project-links" style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
           <a href={link} target="_blank" rel="noopener noreferrer">
-            Live Demo
+            {isStore ? "Visitar Loja" : "Live Demo"}
           </a>
+          
           {isTemplate && buyLink && (
             <a 
               href={buyLink} 
@@ -77,10 +78,11 @@ const ProjectCard = ({ repo, description, link, techs = [], isTemplate = false, 
 function Projects() {
   const projects = [
     {
-      repo: "Meu Portfólio",
-      description: "Meu portfólio pessoal desenvolvido com React, apresentando meus projetos, habilidades e experiências. Design moderno e responsivo com animações suaves.",
-      link: "https://portifolio-virid-alpha-21.vercel.app/",
-      techs: ["React", "JavaScript", "CSS"]
+      repo: "Vitrine de Templates",
+      isStore: true,
+      description: "Minha loja oficial de templates e códigos prontos. Acelere o desenvolvimento dos seus projetos com layouts profissionais em React e TypeScript, com design moderno e código limpo.",
+      link: "https://vitrine-bice-two.vercel.app/",
+      techs: ["React", "TypeScript", "CSS"]
     },
     {
       repo: "Anonymous Secrets",
@@ -109,14 +111,6 @@ function Projects() {
       ],
       link: "https://theimationgame.vercel.app/",
       techs: ["React", "TypeScript", "CSS"] 
-    },
-    {
-      repo : "Portfolio Template",
-      isTemplate: true,
-      buyLink: "https://pay.kiwify.com.br/5pMJ60X",
-      description: "Template profissional de portfólio pessoal feito com React, TypeScript e Vite. Inclui Dark Mode automático, animações com Framer Motion, formulário de contato integrado e 7 seções prontas. Código limpo, 100% responsivo e com documentação detalhada para facilitar sua personalização.",
-      link: "https://portfolio-template-jade-gamma.vercel.app/",
-      techs: ["React", "TypeScript", "CSS"]
     }
   ];
 
@@ -140,6 +134,7 @@ function Projects() {
                 techs={project.techs}
                 isTemplate={project.isTemplate}
                 buyLink={project.buyLink}
+                isStore={project.isStore}
               />
             ))}
           </div>
